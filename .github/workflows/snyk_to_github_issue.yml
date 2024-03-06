@@ -1,0 +1,33 @@
+name: Snyk Scan on Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  snyk_scan_and_issue_creation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Run Snyk to check for vulnerabilities and save output in SARIF format
+        run: snyk test --sarif > snyk_output.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      # - name: Install Python dependencies
+      #   run: |
+      #     python3 -m pip install --upgrade pip
+      #     python3 -m pip install requests
+      
+      - name: Run Python script to process SARIF output and create GitHub Issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_SECRET }}
+        run: python3 .github/scripts/process_sarif_and_create_issue.py
