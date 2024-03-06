@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  security:
+  snyk_scan_and_python_script_issue_creation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -19,7 +19,7 @@ jobs:
           args: --sarif-file-output=snyk_output.sarif --severity-threshold=critical
       
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.x'
       
