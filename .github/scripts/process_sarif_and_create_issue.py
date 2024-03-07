@@ -24,6 +24,9 @@ def process_sarif_file(sarif_file_path, github_token):
     with open(sarif_file_path) as f:
         sarif_data = json.load(f)
 
+    #log the SARIF file
+    print(json.dumps(sarif_data, indent=4))
+
     for run in sarif_data.get("runs", []):
         for result in run.get("results", []):
             if result.get("level") == "error":  # Assuming 'error' level indicates critical issues
