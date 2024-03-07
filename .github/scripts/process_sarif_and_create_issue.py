@@ -36,8 +36,8 @@ def process_sarif_file(sarif_file_path, github_token):
 
             issue_body += f"### Rule ID: {rule_id}\n" \
                           f"#### Message: {message_text}\n" \
-                          f"```json\nLocations: {locations}\n```\n" \
-                          f"```json\nFixes: {fixes}\n```\n\n"
+                          f"```json\n\"locations\": {locations}\n```\n" \
+                          f"```json\n\"fixes\": {fixes}\n```\n\n"
 
     if results_found:
         issue_title = "Multiple Issues Found" if sarif_data["runs"][0]["results"] else "Security Scan Results"
