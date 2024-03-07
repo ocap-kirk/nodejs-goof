@@ -16,7 +16,7 @@ def create_github_issue(title, body, token):
     else:
         print("Failed to create issue. Response: ", response.text)
 
-def process_sarif_and_create_issue(sarif_file_path, github_token):
+def process_sarif_file(sarif_file_path, github_token):
     with open(sarif_file_path, 'r') as file:
         sarif_data = json.load(file)
     
