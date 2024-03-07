@@ -8,8 +8,12 @@ on:
 jobs:
   snyk_scan_and_python_script_issue_creation:
     runs-on: ubuntu-latest
-    steps:
+    steps:      
       - uses: actions/checkout@master
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
